@@ -3,7 +3,7 @@ variables:
   NUGET_HOSTED_URL: http://172.17.0.1:8081/repository/sample-nuget/
   CI_REGISTRY_USERNAME: admin
   CI_REGISTRY_PWD: Moha
-  #CI_REGISTERY_API_KEY: 18e2486f-9a3b-3c16-84ef-c95b188d5374
+  CI_REGISTERY_API_KEY: c8dd6322-fac5-37d8-9c0c-889c460eab8e
 
 image: mcr.microsoft.com/dotnet/sdk:7.0
 
@@ -22,7 +22,7 @@ build:
     #- export VERSION=$(cat ./version)
     - dotnet pack --configuration Release /p:Version=1.0.${CI_PIPELINE_IID} -o $PACKAGE_OUTPUT_DIR --no-restore
     #- dotnet nuget add source $NUGET_HOSTED_URL -n DefaultNuget -u $CI_REGISTRY_USERNAME -p $CI_REGISTRY_PWD --store-password-in-clear-text
-    - dotnet nuget push $PACKAGE_OUTPUT_DIR/**/*.nupkg --source http://172.17.0.1:8081/repository/sample-nuget/index.json --api-key 18e2486f-9a3b-3c16-84ef-c95b188d5374 #$CI_REGISTERY_API_KEY
+    - dotnet nuget push $PACKAGE_OUTPUT_DIR/**/*.nupkg --source $NUGET_HOSTED_URL --api-key $CI_REGISTERY_API_KEY
   artifacts:
     paths:
       - $PACKAGE_OUTPUT_DIR/
